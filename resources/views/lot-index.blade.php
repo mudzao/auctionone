@@ -28,7 +28,8 @@
                                         <td>RM {{ number_format($lot->HighestBid, 2) }}</td>
                                         <td>{{ $lot->user->name }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('lot.show', $lot) }}" class="btn btn-primary btn-sm">Enter Bidding</a>
+                                            <a href="{{ route('lot.show', $lot) }}" class="btn btn-secondary btn-sm">Normal Bid</a>
+                                            <a href="{{ route('v.lot.show', $lot) }}" class="btn btn-primary btn-sm">Live Bid</a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -46,6 +46,8 @@ class LotController extends Controller
             'price' => 'required|gt:10',
         ]);
 
+        //return dd($request);
+
         $bid = new Bid();
         $bid->user_id = Auth::user()->id;
         $bid->lot_id = $lot;
@@ -68,20 +70,27 @@ class LotController extends Controller
         ]);
     }
 
-    public function vBidNew(Request $request)
+    public function getBids(Lot $lot)
     {
-        $bid = new Bid();
-        $bid->user_id = $request->user_id;
-        $bid->lot_id = $request->lot_id;
-        $bid->price = $request->price;
-        $bid->save();
+    	return response()->json(
+    		$lot->bids()->with('user')->latest()->take(5)->get()
+		);
+    }
 
-        return dd($bid);
+    public function postBid(Lot $lot)
+    {
 
-        broadcast(new NewBid($bid))->toOthers();
-
-        return response()->json([
-            'message' => 'New post created'
+        $bid = $lot->bids()->create([
+            'price' => request('price'),
+            'user_id' => Auth()->user()->id,
+            'lot_id' => $lot->id
         ]);
+    
+        $bid = Bid::where('id', $bid->id)->with('user')->first();
+    
+        broadcast(new NewBid($bid))->toOthers();
+    
+        return $bid;
+
     }
 }

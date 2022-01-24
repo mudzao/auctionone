@@ -1,9 +1,6 @@
 require('./bootstrap');
 
-window.Vue = require('vue').default;
-window.Vue.config.devtools = true;
-window.Vue.config.debug = true;
-window.Vue.config.silent = false;
+import Vue from 'vue'
 
 /**
  * The following block of code may be used to automatically register your
@@ -17,7 +14,7 @@ window.Vue.config.silent = false;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('lot-show', require('./components/LotShow.vue').default);
+//Vue.component('lot-show', require('./components/LotShow.vue').default);
 Vue.component('live-bid', require('./components/LiveBid.vue').default);
 
 /**

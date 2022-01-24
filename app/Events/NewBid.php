@@ -34,6 +34,18 @@ class NewBid implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('lot.'.$this->bid->lot_id);
+        return new PresenceChannel('lot.'.$this->bid->lot_id);
+    }
+
+    public function broadcastWith()
+    {
+        return [
+            'id' => $this->bid->id,
+            'price' => $this->bid->price,
+            'user' => [
+                'name' => $this->bid->user->name,
+                'id' => $this->bid->user->id,
+            ],
+        ];
     }
 }
