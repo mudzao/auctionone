@@ -31,4 +31,10 @@ Route::group(['prefix' => 'lot'], function () {
     Route::post('/{lot}/bid', [App\Http\Controllers\LotController::class, 'bidNew'])->name('bid.new');
 });
 
+Route::group(['prefix' => 'vlot'], function () {
+    Route::get('/', [App\Http\Controllers\LotController::class, 'index'])->name('vlot.index');
+    Route::get('/{lot}', [App\Http\Controllers\LotController::class, 'vShow'])->name('v.lot.show');
+    Route::post('/bid', [App\Http\Controllers\LotController::class, 'vBidNew'])->name('v.bid.new');
+});
+
 

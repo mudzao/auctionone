@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\NewBid;
 use App\Models\Lot;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
