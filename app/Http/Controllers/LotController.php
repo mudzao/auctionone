@@ -54,6 +54,9 @@ class LotController extends Controller
         $bid->price = $request->price;
         $bid->save();
 
+        broadcast(new NewBid($bid))->toOthers();
+
+
         return redirect()->route('lot.show', $lot);
     }
 
