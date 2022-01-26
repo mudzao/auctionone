@@ -36,6 +36,7 @@ Route::group(['prefix' => 'vlot'], function () {
     Route::get('/{lot}', [App\Http\Controllers\LotController::class, 'vShow'])->name('v.lot.show');
     Route::post('/bid', [App\Http\Controllers\LotController::class, 'vBidNew'])->name('v.bid.new');
     Route::get('/{lot}/bids', [App\Http\Controllers\LotController::class, 'getBids'])->name('v.lot.get.bids');
+    Route::get('/{lot}/highestbid', [App\Http\Controllers\LotController::class, 'getHighestBid'])->name('v.lot.get.highest.bid');
     Route::post('/{lot}/bid', [App\Http\Controllers\LotController::class, 'postBid'])->name('v.lot.post.bid');
 });
 

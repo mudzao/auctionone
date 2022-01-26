@@ -75,9 +75,22 @@ class LotController extends Controller
 
     public function getBids(Lot $lot)
     {
-    	return response()->json(
-    		$lot->bids()->with('user')->latest()->take(5)->get()
-		);
+        return response()->json(
+            $lot->bids()->with('user')->latest()->take(5)->get()
+        );
+    }
+
+    public function getHighestBid(Lot $lot)
+    {
+        if (empty($lot->bids->count())) {
+            return response()->json(
+                $lot->starting_price
+            );
+        } else {
+            return response()->json(
+                $lot->bids()->with('user')->max('price')
+            );
+        }
     }
 
     public function postBid(Lot $lot)
@@ -88,12 +101,11 @@ class LotController extends Controller
             'user_id' => Auth()->user()->id,
             'lot_id' => $lot->id
         ]);
-    
-        $bid = Bid::where('id', $bid->id)->with('user')->first();
-    
-        broadcast(new NewBid($bid))->toOthers();
-    
-        return $bid;
 
+        $bid = Bid::where('id', $bid->id)->with('user')->first();
+
+        broadcast(new NewBid($bid))->toOthers();
+
+        return $bid;
     }
 }
